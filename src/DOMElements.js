@@ -13,7 +13,7 @@ function logo(name, icon) {
     const logoElement = document.createElement("div");
     logoElement.classList.add("logo");
 
-    const logoIcon = loadImage(icon, 64, 64);
+    const logoIcon = loadImage(icon, 32, 32);
 
     const logoNameElement = document.createElement("span");
     logoNameElement.textContent = name;
@@ -36,7 +36,11 @@ export default class DOMElements {
 
         thisSidebar.appendChild(logoElement);
 
-        console.log(thisSidebar);
         return thisSidebar;
+    }
+
+    initialize() {
+        const body = document.querySelector("body");
+        body.appendChild(this.sidebar);
     }
 };
