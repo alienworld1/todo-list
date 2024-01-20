@@ -30,7 +30,7 @@ body {
     background-color: #02061788;
     display: flex;
     flex-direction: column;
-    width: clamp(200px, 20%, 300px);
+    width: clamp(200px, 20%, 220px);
 }
 
 .sidebar button {
@@ -39,7 +39,6 @@ body {
     font-size: 1.1rem;
     flex: none;
     width: 160px;
-    align-self: center;
     letter-spacing: 2px;
     border: none;
     margin: 16px;
@@ -55,4 +54,21 @@ body {
 .sidebar button:active {
     border: 2px solid #16a34a;
     background-color: #15803d;
+}
+
+.project-list {
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.1rem;
+    color: var(--white);
+}
+
+.project-list li {
+    overflow: hidden;
+    padding: 8px;
+}
+
+.project-list li:hover {
+    background-color: #94a3b888;
 }
