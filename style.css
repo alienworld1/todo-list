@@ -7,6 +7,7 @@
 
 :root {
     --white: #f0f9ff;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -73,4 +74,21 @@ body {
 
 .project-list li:hover {
     background-color: #94a3b888;
+}
+
+dialog {
+    margin: auto;
+    padding: 16px;
+    font-size: 1.25rem;
+    box-shadow: --;
+}
+
+dialog::backdrop {
+    background-color: #09090bbb;
+}
+
+.project-dialog {
+    background-color: #0ea5e9bb;
+    border: none;
+    border-radius: 5px;
 }
