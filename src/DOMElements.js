@@ -29,6 +29,24 @@ function logo(name, icon) {
     
 }
 
+function formInputElement(labelText, inputDetails) {
+    const section = document.createElement("section");
+    const label = document.createElement("label");
+
+    label.setAttribute("for", inputDetails.id);
+    label.textContent = labelText;
+
+    const input = document.createElement("input");
+    input.type = inputDetails.type ?? "text";
+    input.id = inputDetails.id;
+    input.name = inputDetails.name ?? inputDetails.id;
+
+    section.appendChild(label);
+    section.appendChild(input);
+
+    return section;
+}
+
 function createSidebar() {
     const thisSidebar = document.createElement("div");
     thisSidebar.classList.add("sidebar");
@@ -47,6 +65,16 @@ function createSidebar() {
     thisSidebar.appendChild(projectList);
 
     return thisSidebar;
+}
+
+function createProjectDialog() {
+    const dialog = document.createElement("dialog");
+    dialog.classList.add("project-dialog");
+
+    const newProjectInputSection = formInputElement("Name of the New Project:", {id: "new-project-name"});
+
+    dialog.appendChild(newProjectInputSection);
+    return dialog;
 }
 
 export default class DOMElements {
@@ -72,5 +100,10 @@ export default class DOMElements {
     initialize() {
         const body = document.querySelector("body");
         body.appendChild(createSidebar());
+
+        const projectDialog = createProjectDialog();
+        body.appendChild(projectDialog);
+
+        projectDialog.showModal();
     }
 };

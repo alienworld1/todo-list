@@ -91,4 +91,27 @@ dialog::backdrop {
     background-color: #0ea5e9bb;
     border: none;
     border-radius: 5px;
+    color: var(--white);
+}
+
+dialog section {
+    margin: 12;
+}
+
+.project-dialog section label {
+    display: inline-block;
+    width: 20rem;
+}
+
+.project-dialog section input {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+}
+
+.project-dialog section input:focus {
+    border: 2px solid #2563eb;
+    caret-color: #2563eb;
 }
