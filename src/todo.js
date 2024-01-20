@@ -1,4 +1,4 @@
-function createTodo(title, description, dueDate, priority) {
+function todo(title, description, dueDate, priority) {
     return {
         title,
         description,
@@ -6,3 +6,5 @@ function createTodo(title, description, dueDate, priority) {
         priority,
     }
 }
+
+export default todo;

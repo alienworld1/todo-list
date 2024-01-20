@@ -9,6 +9,10 @@ function loadImage(source, width, height) {
     return image;
 }
 
+function removeAllChildElements(parentNode) {
+    while (parentNode.firstChild) parentNode.removeChild(parentNode.firstChild);
+}
+
 function logo(name, icon) {
     const logoElement = document.createElement("div");
     logoElement.classList.add("logo");
@@ -25,27 +29,48 @@ function logo(name, icon) {
     
 }
 
+function createSidebar() {
+    const thisSidebar = document.createElement("div");
+    thisSidebar.classList.add("sidebar");
+
+    const logoElement = logo("To-do List", logoIcon);
+
+    thisSidebar.appendChild(logoElement);
+
+    const newProjectButton = document.createElement("button");
+    newProjectButton.textContent = "New Project";
+
+    thisSidebar.appendChild(newProjectButton);
+
+    const projectList = document.createElement("ul");
+    projectList.classList.add("project-list");
+    thisSidebar.appendChild(projectList);
+
+    return thisSidebar;
+}
+
 export default class DOMElements {
     constructor() {}
 
     get sidebar() {
-        const thisSidebar = document.createElement("div");
-        thisSidebar.classList.add("sidebar");
+        const sidebarElement = document.querySelector(".sidebar");
+        return sidebarElement;
+    }
 
-        const logoElement = logo("To-do List", logoIcon);
+    updateSidebar(projectArray) {
+        const sidebar = this.sidebar;
 
-        thisSidebar.appendChild(logoElement);
+        const projectList = sidebar.querySelector("ul");
+        projectArray.forEach(project => {
+            const listElement = document.createElement("li");
+            listElement.textContent = project.name;
 
-        const newProjectButton = document.createElement("button");
-        newProjectButton.textContent = "New Project";
-
-        thisSidebar.appendChild(newProjectButton);
-
-        return thisSidebar;
+            projectList.appendChild(listElement);
+        });
     }
 
     initialize() {
         const body = document.querySelector("body");
-        body.appendChild(this.sidebar);
+        body.appendChild(createSidebar());
     }
 };

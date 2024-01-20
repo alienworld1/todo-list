@@ -12,3 +12,5 @@ class Project {
         this.todo_array.splice(index, 1);
     }
 }
+
+export default Project;
