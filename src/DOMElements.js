@@ -36,6 +36,11 @@ export default class DOMElements {
 
         thisSidebar.appendChild(logoElement);
 
+        const newProjectButton = document.createElement("button");
+        newProjectButton.textContent = "New Project";
+
+        thisSidebar.appendChild(newProjectButton);
+
         return thisSidebar;
     }
 
