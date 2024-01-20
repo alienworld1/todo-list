@@ -91,20 +91,20 @@ function createProjectDialog() {
     dialog.addEventListener("close", () => {
         body.removeChild(dialog);
     })
-    
+
     return dialog;
 }
 
 export default class DOMElements {
     constructor() {}
 
-    get sidebar() {
+    static get sidebar() {
         const sidebarElement = document.querySelector(".sidebar");
         return sidebarElement;
     }
 
-    updateSidebar(projectArray) {
-        const sidebar = this.sidebar;
+    static updateSidebar(projectArray) {
+        const sidebar = DOMElements.sidebar;
 
         const projectList = sidebar.querySelector("ul");
         projectArray.forEach(project => {
@@ -115,7 +115,7 @@ export default class DOMElements {
         });
     }
 
-    initialize() {
+    static initialize() {
         body.appendChild(createSidebar());
     }
 };

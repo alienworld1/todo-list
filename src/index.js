@@ -1,12 +1,7 @@
 import DOMElements from "./DOMElements";
-import Project from "./project";
-import todo from "./todo";
+import ProjectManager from "./ProjectManager";
 
-const DOMManager = new DOMElements();
+DOMElements.initialize();
 
-DOMManager.initialize();
-
-const defaultProject = new Project("Default Project");
-const Project1 = new Project("Project1");
-
-DOMManager.updateSidebar([defaultProject, Project1,]);
+ProjectManager.addNewProject("Default Project");
+DOMElements.updateSidebar(ProjectManager.projectList);
