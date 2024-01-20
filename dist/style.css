@@ -35,28 +35,30 @@ body {
     width: clamp(200px, 20%, 220px);
 }
 
-.sidebar button {
+.create-button {
     font-family: "Open Sans", sans-serif;
     padding: 8px;
     font-size: 1.1rem;
-    flex: none;
-    width: 160px;
-    letter-spacing: 2px;
     border: none;
-    margin: 16px;
     color: var(--white);
     background-color: #16a34a;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.sidebar button:hover {
+.create-button:hover {
     background-color: #22c55e;
 }
 
-.sidebar button:active {
+.create-button:active {
     border: 2px solid #16a34a;
     background-color: #15803d;
+}
+
+.sidebar button {
+    flex: none;
+    width: 160px;
+    margin: 16px;
 }
 
 .project-list {
@@ -92,6 +94,8 @@ dialog::backdrop {
     border: none;
     border-radius: 5px;
     color: var(--white);
+    display: flex;
+    flex-direction: column;
 }
 
 dialog section {
@@ -114,4 +118,9 @@ dialog section {
 .project-dialog section input:focus {
     border: 2px solid #2563eb;
     caret-color: #2563eb;
+}
+
+.project-dialog button {
+    margin: auto;
+    margin-top: 32px;
 }

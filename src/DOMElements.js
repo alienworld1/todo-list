@@ -57,6 +57,7 @@ function createSidebar() {
 
     const newProjectButton = document.createElement("button");
     newProjectButton.textContent = "New Project";
+    newProjectButton.classList.add("create-button");
 
     thisSidebar.appendChild(newProjectButton);
 
@@ -73,7 +74,12 @@ function createProjectDialog() {
 
     const newProjectInputSection = formInputElement("Name of the New Project:", {id: "new-project-name"});
 
+    const createProjectButton = document.createElement("button");
+    createProjectButton.textContent = "Create New Project";
+    createProjectButton.classList.add("create-button");
+
     dialog.appendChild(newProjectInputSection);
+    dialog.appendChild(createProjectButton);
     return dialog;
 }
 
