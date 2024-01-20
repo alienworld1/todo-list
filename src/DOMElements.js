@@ -1,5 +1,7 @@
 import logoIcon from "./Images/notebook-check-outline.svg";
 
+const body = document.querySelector("body");
+
 function loadImage(source, width, height) {
     const image = new Image();
     image.src = source;
@@ -58,6 +60,11 @@ function createSidebar() {
     const newProjectButton = document.createElement("button");
     newProjectButton.textContent = "New Project";
     newProjectButton.classList.add("create-button");
+    newProjectButton.addEventListener("click", () => {
+        const dialog = createProjectDialog();
+        body.appendChild(dialog);
+        dialog.showModal();
+    })
 
     thisSidebar.appendChild(newProjectButton);
 
@@ -80,6 +87,11 @@ function createProjectDialog() {
 
     dialog.appendChild(newProjectInputSection);
     dialog.appendChild(createProjectButton);
+
+    dialog.addEventListener("close", () => {
+        body.removeChild(dialog);
+    })
+    
     return dialog;
 }
 
@@ -104,12 +116,6 @@ export default class DOMElements {
     }
 
     initialize() {
-        const body = document.querySelector("body");
         body.appendChild(createSidebar());
-
-        const projectDialog = createProjectDialog();
-        body.appendChild(projectDialog);
-
-        projectDialog.showModal();
     }
 };
