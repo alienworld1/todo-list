@@ -1,3 +1,4 @@
+import ProjectManager from "./ProjectManager";
 import logoIcon from "./Images/notebook-check-outline.svg";
 
 const body = document.querySelector("body");
@@ -46,7 +47,10 @@ function formInputElement(labelText, inputDetails) {
     section.appendChild(label);
     section.appendChild(input);
 
-    return section;
+    return {
+        section,
+        input,
+    };
 }
 
 function createSidebar() {
@@ -75,6 +79,11 @@ function createSidebar() {
     return thisSidebar;
 }
 
+function newProject(projectName) {
+    ProjectManager.addNewProject(projectName);
+    DOMElements.updateSidebar(ProjectManager.projectList);
+}
+
 function createProjectDialog() {
     const dialog = document.createElement("dialog");
     dialog.classList.add("project-dialog");
@@ -85,12 +94,23 @@ function createProjectDialog() {
     createProjectButton.textContent = "Create New Project";
     createProjectButton.classList.add("create-button");
 
-    dialog.appendChild(newProjectInputSection);
+    createProjectButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (!newProjectInputSection.input.value) {
+            dialog.close();
+            return;
+        }
+
+        newProject(newProjectInputSection.input.value);
+        dialog.close();
+    });
+
+    dialog.appendChild(newProjectInputSection.section);
     dialog.appendChild(createProjectButton);
 
     dialog.addEventListener("close", () => {
         body.removeChild(dialog);
-    })
+    });
 
     return dialog;
 }
@@ -107,6 +127,7 @@ export default class DOMElements {
         const sidebar = DOMElements.sidebar;
 
         const projectList = sidebar.querySelector("ul");
+        removeAllChildElements(projectList);
         projectArray.forEach(project => {
             const listElement = document.createElement("li");
             listElement.textContent = project.name;
