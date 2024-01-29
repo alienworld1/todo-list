@@ -56,6 +56,8 @@ function formInputElement(labelText, inputDetails) {
 function selectActiveProject(event) {
     const projectIndex = +event.currentTarget.id;
     ProjectManager.activeProject = projectIndex;
+
+    displayActiveProject();
 }
 
 function createSidebar() {
@@ -120,6 +122,39 @@ function createProjectDialog() {
     return dialog;
 }
 
+function projectTitle() {
+    const projectHeader = document.createElement("h1");
+    projectHeader.classList.add("project-header");
+
+    return projectHeader;
+}
+
+function displayActiveProject() {
+    const projectHeader = document.querySelector(".project-header");
+    projectHeader.textContent = ProjectManager.activeProject.name;
+}
+
+function header() {
+    const header = document.createElement("header");
+    const projectHeader = projectTitle();
+
+    const newToDoButton = document.createElement("button");
+    newToDoButton.classList.add("create-button");
+    newToDoButton.textContent = "Add a new entry"
+
+    header.appendChild(projectHeader);
+    header.appendChild(newToDoButton);
+
+    return header;
+}
+
+function main() {
+    const main = document.createElement("main");
+    main.appendChild(header());
+
+    return main;
+}
+
 export default class DOMElements {
     constructor() {}
 
@@ -148,5 +183,8 @@ export default class DOMElements {
 
     static initialize() {
         body.appendChild(createSidebar());
+        body.appendChild(main());
+
+        displayActiveProject();
     }
 };

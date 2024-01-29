@@ -15,9 +15,6 @@ export default class ProjectManager {
 
      static set activeProject(projectArrayIndex) {
         activeProject = projectArray[projectArrayIndex];
-        
-        console.log("Selected active project!");
-        console.log(ProjectManager.activeProject.name);    
      }
 
      static get activeProject() {
