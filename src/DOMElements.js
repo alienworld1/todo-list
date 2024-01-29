@@ -53,6 +53,11 @@ function formInputElement(labelText, inputDetails) {
     };
 }
 
+function selectActiveProject(event) {
+    const projectIndex = +event.currentTarget.id;
+    ProjectManager.activeProject = projectIndex;
+}
+
 function createSidebar() {
     const thisSidebar = document.createElement("div");
     thisSidebar.classList.add("sidebar");
@@ -128,9 +133,14 @@ export default class DOMElements {
 
         const projectList = sidebar.querySelector("ul");
         removeAllChildElements(projectList);
+        let i = 0;
         projectArray.forEach(project => {
             const listElement = document.createElement("li");
             listElement.textContent = project.name;
+            listElement.id = i;
+            i++;
+
+            listElement.addEventListener("click", selectActiveProject);
 
             projectList.appendChild(listElement);
         });
