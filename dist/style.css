@@ -8,6 +8,7 @@
 :root {
     --white: #f0f9ff;
     --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --transparent-white: rgba(240, 240, 240, 0.35);
 }
 
 body {
@@ -123,4 +124,19 @@ dialog section {
 .project-dialog button {
     margin: auto;
     margin-top: 32px;
+}
+
+main {
+    width: 100%;
+    padding: 8px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px;
+    background-color: var(--transparent-white);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border-radius: 5px;
 }
