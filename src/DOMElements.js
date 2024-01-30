@@ -28,7 +28,7 @@ function todoDOMElement(project, todoID) {
 
     const todoDueDate = document.createElement("div");
     todoDueDate.classList.add("description");
-    todoDueDate.textContent = `Due on ${thisTodo.dueDate}`;
+    todoDueDate.textContent = `Due on ${thisTodo.dueDate.toDateString()}`;
 
     todoCard.appendChild(todoHeader);
     todoCard.appendChild(todoDescription);
@@ -177,11 +177,15 @@ function header() {
 
 function checkEmptytodoContainer() {
     const todoContainer = document.querySelector("#todo-container");
+
     if (!todoContainer.firstChild) {
         todoContainer.textContent = "This project is empty at the moment.";
         todoContainer.classList.add("center-text");
     }
-    else todoContainer.classList.remove("center-text");
+
+    else {
+        todoContainer.classList.remove("center-text");
+    }
 }
 
 function todoContainer() {
@@ -191,6 +195,19 @@ function todoContainer() {
     todoContainer.classList.add("center-in-main");
 
     return todoContainer;
+}
+
+function updateToDoContainer(project) {
+    const todoContainer = document.querySelector("#todo-container");
+    removeAllChildElements(todoContainer);
+
+    for (const todoID in project.todo_container) {
+        const todoCard = todoDOMElement(project, todoID);
+        console.log(todoCard);
+        todoContainer.appendChild(todoCard);
+    }
+
+    checkEmptytodoContainer();
 }
 
 function main() {
@@ -233,5 +250,9 @@ export default class DOMElements {
         checkEmptytodoContainer();
 
         displayActiveProject();
+    }
+
+    static update() {
+        updateToDoContainer(ProjectManager.activeProject);
     }
 };
