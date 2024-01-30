@@ -151,9 +151,23 @@ header {
     min-height: 400px;
     display: flex;
     flex-wrap: wrap;
+    gap: 32px;
 }
 
 .center-text {
     justify-content: center;
     align-items: center;
+}
+
+.todo-card {
+    box-shadow: var(--shadow);
+    border-radius: 4px;
+    width: 250px;
+    height: 200px;
+    background-color: var(--white);
+    padding: 12px;
+}
+
+.todo-card *{
+    margin: 8px;
 }
