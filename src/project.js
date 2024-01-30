@@ -1,15 +1,15 @@
 class Project {
     constructor (name) {
         this.name = name;
-        this.todo_array = [];
+        this.todo_container = {};
     }
 
-    addTodo(todoObject) {
-        this.todo_array.push(todoObject);
+    addTodo(todoID, todo) {
+        this.todo_container[todoID] = todo;
     }
 
-    removeTodo(index) {
-        this.todo_array.splice(index, 1);
+    removeTodo(todoID) {
+        delete this.todo_container[todoID];
     }
 }
 

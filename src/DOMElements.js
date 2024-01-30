@@ -12,6 +12,31 @@ function loadImage(source, width, height) {
     return image;
 }
 
+function todoDOMElement(project, todoID) {
+    const todoCard = document.createElement("div");
+    todoCard.classList.add("todo-card");
+    todoCard.id = todoID;
+
+    const thisTodo = project.todo_container[todoID];
+
+    const todoHeader = document.createElement("h3");
+    todoHeader.textContent = thisTodo.title;
+
+    const todoDescription = document.createElement("p");
+    todoDescription.classList.add("description");
+    todoDescription.textContent = thisTodo.description;
+
+    const todoDueDate = document.createElement("div");
+    todoDueDate.classList.add("description");
+    todoDueDate.textContent = `Due on ${thisTodo.dueDate}`;
+
+    todoCard.appendChild(todoHeader);
+    todoCard.appendChild(todoDescription);
+    todoCard.appendChild(todoDueDate);
+    
+    return todoCard;
+}
+
 function removeAllChildElements(parentNode) {
     while (parentNode.firstChild) parentNode.removeChild(parentNode.firstChild);
 }
@@ -137,6 +162,8 @@ function displayActiveProject() {
 function header() {
     const header = document.createElement("header");
     const projectHeader = projectTitle();
+    header.classList.add("translucent-box");
+    header.classList.add("center-in-main");
 
     const newToDoButton = document.createElement("button");
     newToDoButton.classList.add("create-button");
@@ -148,9 +175,28 @@ function header() {
     return header;
 }
 
+function checkEmptytodoContainer() {
+    const todoContainer = document.querySelector("#todo-container");
+    if (!todoContainer.firstChild) {
+        todoContainer.textContent = "This project is empty at the moment.";
+        todoContainer.classList.add("center-text");
+    }
+    else todoContainer.classList.remove("center-text");
+}
+
+function todoContainer() {
+    const todoContainer = document.createElement("div");
+    todoContainer.id = "todo-container";
+    todoContainer.classList.add("translucent-box");
+    todoContainer.classList.add("center-in-main");
+
+    return todoContainer;
+}
+
 function main() {
     const main = document.createElement("main");
     main.appendChild(header());
+    main.appendChild(todoContainer());
 
     return main;
 }
@@ -184,6 +230,7 @@ export default class DOMElements {
     static initialize() {
         body.appendChild(createSidebar());
         body.appendChild(main());
+        checkEmptytodoContainer();
 
         displayActiveProject();
     }

@@ -134,9 +134,26 @@ main {
 header {
     display: flex;
     justify-content: space-between;
-    margin: 16px;
+}
+
+.translucent-box {
     background-color: var(--transparent-white);
-    padding: 20px;
     box-shadow: var(--shadow);
     border-radius: 5px;
+}
+
+.center-in-main {
+    margin: 16px;
+    padding: 20px;
+}
+
+#todo-container {
+    min-height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.center-text {
+    justify-content: center;
+    align-items: center;
 }
