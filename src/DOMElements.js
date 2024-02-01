@@ -12,12 +12,21 @@ function loadImage(source, width, height) {
     return image;
 }
 
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function todoDOMElement(project, todoID) {
     const todoCard = document.createElement("div");
     todoCard.classList.add("todo-card");
     todoCard.id = todoID;
 
     const thisTodo = project.todo_container[todoID];
+
+    const accent = document.createElement("div");
+    accent.classList.add("accent");
+    accent.classList.add(thisTodo.priority);
+    accent.textContent = capitalize(thisTodo.priority);
 
     const todoHeader = document.createElement("h3");
     todoHeader.textContent = thisTodo.title;
@@ -30,6 +39,7 @@ function todoDOMElement(project, todoID) {
     todoDueDate.classList.add("description");
     todoDueDate.textContent = `Due on ${thisTodo.dueDate.toDateString()}`;
 
+    todoCard.appendChild(accent);
     todoCard.appendChild(todoHeader);
     todoCard.appendChild(todoDescription);
     todoCard.appendChild(todoDueDate);
@@ -203,7 +213,6 @@ function updateToDoContainer(project) {
 
     for (const todoID in project.todo_container) {
         const todoCard = todoDOMElement(project, todoID);
-        console.log(todoCard);
         todoContainer.appendChild(todoCard);
     }
 
