@@ -166,8 +166,39 @@ header {
     height: 200px;
     background-color: var(--white);
     padding: 12px;
+    padding-top: 32px;
+    position: relative; 
 }
 
-.todo-card *{
+.todo-card *:not(.accent){
     margin: 8px;
+}
+
+.accent {
+    height: 30px;
+    width: 250px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+    padding: 4px;
+    color: var(--white);
+}
+
+.accent.low {
+    background-color: #22c55e;
+}
+
+.accent.high {
+    background-color: #dc2626;
+}
+
+.accent.medium {
+    background-color: #eab308;
+    color: #020617;
+}
+
+.description:first-child {
+    overflow: scroll;
 }
