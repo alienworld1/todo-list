@@ -215,7 +215,17 @@ function newTodoDialog() {
     dialog.appendChild(prioritySection());
     dialog.appendChild(createButton);
 
+    dialog.addEventListener("close", () => {
+        body.removeChild(dialog);
+    });
+
     return dialog;
+}
+
+function openTodoDialog() {
+    const dialog = newTodoDialog();
+    body.appendChild(dialog);
+    dialog.showModal();
 }
 
 function createProjectDialog() {
@@ -270,6 +280,7 @@ function header() {
     const newToDoButton = document.createElement("button");
     newToDoButton.classList.add("create-button");
     newToDoButton.textContent = "Add a new entry"
+    newToDoButton.addEventListener("click", openTodoDialog);
 
     header.appendChild(projectHeader);
     header.appendChild(newToDoButton);
@@ -351,11 +362,6 @@ export default class DOMElements {
         checkEmptytodoContainer();
 
         displayActiveProject();
-
-        const d = newTodoDialog();
-        body.appendChild(d);
-
-        d.showModal();
     }
 
     static update() {
