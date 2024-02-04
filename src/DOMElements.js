@@ -1,5 +1,6 @@
 import ProjectManager from "./ProjectManager";
 import logoIcon from "./Images/notebook-check-outline.svg";
+import todo from "./todo";
 
 const body = document.querySelector("body");
 
@@ -181,6 +182,8 @@ function newTodoDialog() {
     const dialog = document.createElement("dialog");
     dialog.classList.add("form-dialog");
 
+    const form = document.createElement("form");
+
     const newTodoTitleSection = formInputElement("Title: ", {
         id: "title",
     });
@@ -195,6 +198,7 @@ function newTodoDialog() {
     const descriptionInput = document.createElement("textarea");
     descriptionInput.rows = 5;
     descriptionInput.cols = 55;
+    descriptionInput.name = "description";
 
     descriptionSection.appendChild(descriptionLabel);
     descriptionSection.appendChild(descriptionInput);
@@ -209,12 +213,50 @@ function newTodoDialog() {
     createButton.classList.add("create-button");
     createButton.classList.add("todo-button");
 
-    dialog.appendChild(newTodoTitleSection.section);
-    dialog.appendChild(descriptionSection);
-    dialog.appendChild(dueDateSection.section);
-    dialog.appendChild(prioritySection());
-    dialog.appendChild(createButton);
+    form.appendChild(newTodoTitleSection.section);
+    form.appendChild(descriptionSection);
+    form.appendChild(dueDateSection.section);
+    form.appendChild(prioritySection());
 
+    createButton.addEventListener("click", event => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+
+        const title = formData.get("title");
+        const description = formData.get("description");
+        const dueDate = formData.get("due-date");
+        const priority = formData.get("priority");
+
+        if (!(title && description && dueDate)) {
+            dialog.close();
+            return;
+        }
+
+        let id;
+
+        if (ProjectManager.activeProject.hasOwnProperty(title)) {
+            id = title + "1";
+        }
+
+        else id = title;
+
+        const newTodo = todo(
+            title,
+            description,
+            new Date(dueDate),
+            priority
+        );
+
+        ProjectManager.activeProject.addTodo(id, newTodo);
+        DOMElements.update();
+        dialog.close();
+
+    });
+
+    form.appendChild(createButton);
+
+    dialog.appendChild(form);
     dialog.addEventListener("close", () => {
         body.removeChild(dialog);
     });
