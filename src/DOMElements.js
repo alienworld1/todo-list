@@ -67,6 +67,12 @@ function logo(name, icon) {
     
 }
 
+/**
+ * Returns a object containing the section and the input element
+ * @param {string} labelText 
+ * @param {object} inputDetails - the id is required, but the type and name can also be mentioned 
+ * @returns 
+ */
 function formInputElement(labelText, inputDetails) {
     const section = document.createElement("section");
     const label = document.createElement("label");
@@ -78,6 +84,8 @@ function formInputElement(labelText, inputDetails) {
     input.type = inputDetails.type ?? "text";
     input.id = inputDetails.id;
     input.name = inputDetails.name ?? inputDetails.id;
+
+    if (inputDetails.value) input.value = inputDetails.value; 
 
     section.appendChild(label);
     section.appendChild(input);
@@ -126,9 +134,93 @@ function newProject(projectName) {
     DOMElements.updateSidebar(ProjectManager.projectList);
 }
 
+function prioritySection() {
+    const prioritySection = document.createElement("section");
+    prioritySection.classList.add("block");
+
+    const priorityHeader = document.createElement("p");
+    priorityHeader.textContent = "Priority:";
+
+    prioritySection.appendChild(priorityHeader);
+
+    const priorityRadioButtons = document.createElement("div");
+    priorityRadioButtons.classList.add("priority-section");
+
+    const highRadioInput = formInputElement("High", {
+        id: "high",
+        type: "radio",
+        value: "high",
+        name: "priority",
+    });
+
+    const mediumRadioInput = formInputElement("Medium", {
+        id: "medium",
+        type: "radio",
+        value: "medium",
+        name: "priority",
+    });
+
+    const lowRadioInput = formInputElement("Low", {
+        id: "low",
+        type: "radio",
+        value: "low",
+        name: "priority",
+    });
+
+    lowRadioInput.input.checked = true;
+
+    priorityRadioButtons.appendChild(highRadioInput.section);
+    priorityRadioButtons.appendChild(mediumRadioInput.section);
+    priorityRadioButtons.appendChild(lowRadioInput.section);
+
+    prioritySection.appendChild(priorityRadioButtons);
+    return prioritySection;
+}
+
+function newTodoDialog() {
+    const dialog = document.createElement("dialog");
+    dialog.classList.add("form-dialog");
+
+    const newTodoTitleSection = formInputElement("Title: ", {
+        id: "title",
+    });
+    
+    const descriptionSection = document.createElement("section");
+    descriptionSection.classList.add("block");
+
+    const descriptionLabel = document.createElement("label");
+    descriptionLabel.setAttribute("for", "description");
+    descriptionLabel.textContent = "Description:";
+    
+    const descriptionInput = document.createElement("textarea");
+    descriptionInput.rows = 5;
+    descriptionInput.cols = 55;
+
+    descriptionSection.appendChild(descriptionLabel);
+    descriptionSection.appendChild(descriptionInput);
+
+    const dueDateSection = formInputElement("Due Date:", {
+        id: "due-date",
+        type: "date",
+    });
+    
+    const createButton = document.createElement("button");
+    createButton.textContent = "Enter Todo";
+    createButton.classList.add("create-button");
+    createButton.classList.add("todo-button");
+
+    dialog.appendChild(newTodoTitleSection.section);
+    dialog.appendChild(descriptionSection);
+    dialog.appendChild(dueDateSection.section);
+    dialog.appendChild(prioritySection());
+    dialog.appendChild(createButton);
+
+    return dialog;
+}
+
 function createProjectDialog() {
     const dialog = document.createElement("dialog");
-    dialog.classList.add("project-dialog");
+    dialog.classList.add("form-dialog");
 
     const newProjectInputSection = formInputElement("Name of the New Project:", {id: "new-project-name"});
 
@@ -259,6 +351,11 @@ export default class DOMElements {
         checkEmptytodoContainer();
 
         displayActiveProject();
+
+        const d = newTodoDialog();
+        body.appendChild(d);
+
+        d.showModal();
     }
 
     static update() {

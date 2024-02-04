@@ -90,8 +90,8 @@ dialog::backdrop {
     background-color: #09090bbb;
 }
 
-.project-dialog {
-    background-color: #0ea5e9bb;
+.form-dialog {
+    background-color: #0ea5e9;
     border: none;
     border-radius: 5px;
     color: var(--white);
@@ -103,27 +103,42 @@ dialog section {
     margin: 12;
 }
 
-.project-dialog section label {
+.form-dialog section label:not(.block label) {
     display: inline-block;
     width: 20rem;
 }
 
-.project-dialog section input {
+.form-dialog section input,
+.block textarea {
     font-family: "Open Sans", sans-serif;
     font-size: 1rem;
     border-radius: 4px;
     border: none;
     outline: none;
+    cursor: text;
 }
 
-.project-dialog section input:focus {
+.form-dialog section input[type="date"] {
+    margin-left: 3rem;
+}
+
+.form-dialog section input:focus,
+.block textarea:focus {
     border: 2px solid #2563eb;
     caret-color: #2563eb;
 }
 
-.project-dialog button {
+.form-dialog button {
     margin: auto;
     margin-top: 32px;
+}
+
+.block label {
+    display: block;
+}
+
+.block textarea {
+    margin: 8px auto;
 }
 
 main {
@@ -201,4 +216,30 @@ header {
 
 .description:first-child {
     overflow: scroll;
+}
+
+.priority-section label {
+    display: inline;
+}
+
+.priority-section {
+    display: flex;
+    gap: 16px;
+}
+
+.priority-section section{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 12px;
+}
+
+.priority-section section input{
+    accent-color: #E9520E;
+    cursor: pointer;
+}
+
+.form-dialog .todo-button {
+    margin: 0;
+    margin-top: 16px;
+    width: 160px;
 }
