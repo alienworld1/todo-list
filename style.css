@@ -182,7 +182,9 @@ header {
     background-color: var(--white);
     padding: 12px;
     padding-top: 32px;
-    position: relative; 
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden; 
 }
 
 .todo-card *:not(.accent){
