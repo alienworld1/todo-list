@@ -311,6 +311,8 @@ function projectTitle() {
 function displayActiveProject() {
     const projectHeader = document.querySelector(".project-header");
     projectHeader.textContent = ProjectManager.activeProject.name;
+
+    DOMElements.update();
 }
 
 function header() {
