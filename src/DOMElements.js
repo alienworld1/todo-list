@@ -40,10 +40,16 @@ function todoDOMElement(project, todoID) {
     todoDueDate.classList.add("description");
     todoDueDate.textContent = `Due on ${thisTodo.dueDate.toDateString()}`;
 
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("create-button");
+    deleteButton.classList.add("red-background");
+    deleteButton.textContent = "Delete";
+
     todoCard.appendChild(accent);
     todoCard.appendChild(todoHeader);
     todoCard.appendChild(todoDescription);
     todoCard.appendChild(todoDueDate);
+    todoCard.appendChild(deleteButton);
     
     return todoCard;
 }
