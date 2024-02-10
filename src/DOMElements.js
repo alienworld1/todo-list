@@ -20,7 +20,7 @@ function capitalize(string) {
 function editForm(todoCard) {
     const todo = ProjectManager.activeProject.todo_container[todoCard.id];
     
-    const dialog = newTodoDialog(true);
+    const dialog = newTodoDialog(true, todoCard.id);
 
     body.appendChild(dialog);
     dialog.showModal();
@@ -32,7 +32,6 @@ function editForm(todoCard) {
     document.getElementById("due-date").value = todo.dueDate.toISOString().slice(0, 10);
 
     document.getElementById(todo.priority).checked = true;
-
 }
 
 function todoDOMElement(project, todoID) {
@@ -216,7 +215,7 @@ function prioritySection() {
     return prioritySection;
 }
 
-function newTodoDialog(edit=false) {
+function newTodoDialog(edit=false, oldID=null) {
     const dialog = document.createElement("dialog");
     dialog.classList.add("form-dialog");
 
@@ -267,7 +266,7 @@ function newTodoDialog(edit=false) {
         const dueDate = formData.get("due-date");
         const priority = formData.get("priority");
 
-        addTodo(title, description, dueDate, priority, edit);
+        addTodo(title, description, dueDate, priority, edit, oldID);
         DOMElements.update();
         dialog.close();
 
@@ -283,7 +282,11 @@ function newTodoDialog(edit=false) {
     return dialog;
 }
 
-function addTodo(title, description, dueDate, priority, update=false) {
+function checkIfTodoExists(todoID) {
+    return ProjectManager.activeProject.todo_container.hasOwnProperty(todoID);
+}
+
+function addTodo(title, description, dueDate, priority, update=false, oldID=null) {
     if (!(title && description && dueDate)) {
         dialog.close();
         return;
@@ -299,11 +302,22 @@ function addTodo(title, description, dueDate, priority, update=false) {
     );
 
     if (update) {
+
+        if (oldID !== title) {
+            if (checkIfTodoExists(title)) {
+                id = title + "1";
+            }
+        
+            else id = title;
+            
+            ProjectManager.activeProject.removeTodo(oldID);
+        }
+
         ProjectManager.activeProject.todo_container[id] = newTodo;
     }
 
     else {
-        if (ProjectManager.activeProject.todo_container.hasOwnProperty(title)) {
+        if (checkIfTodoExists(title)) {
             id = title + "1";
         }
     
