@@ -394,13 +394,23 @@ function header() {
     header.classList.add("translucent-box");
     header.classList.add("center-in-main");
 
+    const deleteProjectButton = document.createElement("button");
+    deleteProjectButton.classList.add("create-button");
+    deleteProjectButton.classList.add("red-background");
+    deleteProjectButton.textContent = "Delete Project";
+
     const newToDoButton = document.createElement("button");
     newToDoButton.classList.add("create-button");
     newToDoButton.textContent = "Add a new entry"
     newToDoButton.addEventListener("click", openTodoDialog);
 
+    const buttonList = document.createElement("ul");
+
+    buttonList.appendChild(deleteProjectButton);
+    buttonList.appendChild(newToDoButton);
+
     header.appendChild(projectHeader);
-    header.appendChild(newToDoButton);
+    header.appendChild(buttonList);
 
     return header;
 }
