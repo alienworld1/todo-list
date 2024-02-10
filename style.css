@@ -269,3 +269,12 @@ header ul {
     display: flex;
     gap: 12px;
 }
+
+button.red-background:disabled {
+    cursor: not-allowed;
+    background-color: #f87171;
+}
+
+button.red-background:disabled:active {
+    border: none;
+}
