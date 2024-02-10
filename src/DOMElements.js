@@ -22,6 +22,9 @@ function editForm(todoCard) {
     
     const dialog = newTodoDialog(true, todoCard.id);
 
+    const button = dialog.querySelector(".create-button");
+    button.textContent = "Edit Todo";
+
     body.appendChild(dialog);
     dialog.showModal();
 
