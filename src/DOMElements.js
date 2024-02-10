@@ -27,7 +27,9 @@ function editForm(todoCard) {
 
     document.getElementById("title").value = todo.title;
     document.getElementById("description").value = todo.description;
-    document.getElementById("due-date").value = todo.dueDate;
+
+    // changing date to YYYY-MM-DD format.
+    document.getElementById("due-date").value = todo.dueDate.toISOString().slice(0, 10);
 
     document.getElementById(todo.priority).checked = true;
 
