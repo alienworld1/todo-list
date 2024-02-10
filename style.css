@@ -263,3 +263,9 @@ header {
 section.button-container {
     margin: 0 !important;
 }
+
+header ul {
+    list-style: none;
+    display: flex;
+    gap: 12px;
+}
