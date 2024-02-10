@@ -1,4 +1,11 @@
+import Project from "./project";
 
+function projectFromJSON(object) {
+    const project = new Project(object.name);
+    project.todo_container = object.todo_container;
+    
+    return project;
+}
 
 export default class StorageHandler {
     static checkIfProjectArrayExists() {
@@ -7,5 +14,14 @@ export default class StorageHandler {
         }
 
         return false;
+    }
+
+    static set projectArray(array) {
+        localStorage.setItem("projectArray", JSON.stringify(array));
+    }
+
+    static get projectArray() {
+        const array = JSON.parse(localStorage.getItem("projectArray"));
+    
     }
 } 
