@@ -259,3 +259,7 @@ header {
     margin-top: 16px;
     width: 160px;
 }
+
+section.button-container {
+    margin: 0 !important;
+}

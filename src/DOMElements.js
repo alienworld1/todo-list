@@ -17,6 +17,22 @@ function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function editForm(todoCard) {
+    const todo = ProjectManager.activeProject.todo_container[todoCard.id];
+    
+    const dialog = newTodoDialog();
+
+    body.appendChild(dialog);
+    dialog.showModal();
+
+    document.getElementById("title").value = todo.title;
+    document.getElementById("description").value = todo.description;
+    document.getElementById("due-date").value = todo.dueDate;
+
+    document.getElementById(todo.priority).checked = true;
+
+}
+
 function todoDOMElement(project, todoID) {
     const todoCard = document.createElement("div");
     todoCard.classList.add("todo-card");
@@ -40,16 +56,30 @@ function todoDOMElement(project, todoID) {
     todoDueDate.classList.add("description");
     todoDueDate.textContent = `Due on ${thisTodo.dueDate.toDateString()}`;
 
+    const buttonSection = document.createElement("section");
+    buttonSection.classList.add("button-container");
+
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("create-button");
     deleteButton.classList.add("red-background");
     deleteButton.textContent = "Delete";
 
+    const editButton = document.createElement("button");
+    editButton.classList.add("create-button");
+    editButton.textContent = "Edit";
+    editButton.addEventListener("click", event => {
+        const todo = event.currentTarget.parentNode.parentNode;
+        editForm(todo);
+    });
+
+    buttonSection.appendChild(editButton);
+    buttonSection.appendChild(deleteButton);
+
     todoCard.appendChild(accent);
     todoCard.appendChild(todoHeader);
     todoCard.appendChild(todoDescription);
     todoCard.appendChild(todoDueDate);
-    todoCard.appendChild(deleteButton);
+    todoCard.appendChild(buttonSection);
     
     return todoCard;
 }
@@ -205,6 +235,7 @@ function newTodoDialog() {
     descriptionInput.rows = 5;
     descriptionInput.cols = 55;
     descriptionInput.name = "description";
+    descriptionInput.id = "description";
 
     descriptionSection.appendChild(descriptionLabel);
     descriptionSection.appendChild(descriptionInput);
