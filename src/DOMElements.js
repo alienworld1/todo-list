@@ -2,6 +2,7 @@ import ProjectManager from "./ProjectManager";
 import logoIcon from "./Images/notebook-check-outline.svg";
 import todo from "./todo";
 import { capitalize, formatDate } from "./utility";
+import StorageHandler from "./StorageHandler";
 
 const body = document.querySelector("body");
 
@@ -175,6 +176,8 @@ function createSidebar() {
 function newProject(projectName) {
     ProjectManager.addNewProject(projectName);
     DOMElements.updateSidebar(ProjectManager.projectList);
+
+    StorageHandler.projectArray = ProjectManager.projectList;
 }
 
 function prioritySection() {
@@ -510,5 +513,7 @@ export default class DOMElements {
         else {
             deleteButton.disabled = false;
         }
+
+        StorageHandler.projectArray = ProjectManager.projectList;
     }
 };

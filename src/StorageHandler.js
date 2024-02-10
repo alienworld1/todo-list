@@ -22,6 +22,12 @@ export default class StorageHandler {
 
     static get projectArray() {
         const array = JSON.parse(localStorage.getItem("projectArray"));
-    
+        const newArray = array.map(project => {
+            for (const todo in project.todo_container) {
+                project.todo_container[todo].dueDate = new Date(todo.dueDate);
+            }
+            return projectFromJSON(project);
+        });
+        return newArray;
     }
 } 

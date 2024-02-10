@@ -1,10 +1,26 @@
 import Project from "./project";
+import StorageHandler  from "./StorageHandler";
 
-const projectArray = [];
+let projectArray = [];
 let activeProject;
 let activeIndex = 0;
 
 export default class ProjectManager {
+
+    static initialize() {
+      if (!StorageHandler.checkIfProjectArrayExists()) {
+         ProjectManager.addNewProject("Default Project");
+         ProjectManager.activeProject = 0;
+     }
+     
+     else {
+         const array = StorageHandler.projectArray;
+         projectArray = array;
+         ProjectManager.activeProject = 0;
+     }
+     
+    }
+
     static addNewProject(projectName) {
         const project = new Project(projectName);
         projectArray.push(project);
