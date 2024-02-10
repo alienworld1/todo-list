@@ -2,6 +2,7 @@ import Project from "./project";
 
 const projectArray = [];
 let activeProject;
+let activeIndex = 0;
 
 export default class ProjectManager {
     static addNewProject(projectName) {
@@ -15,9 +16,14 @@ export default class ProjectManager {
 
      static set activeProject(projectArrayIndex) {
         activeProject = projectArray[projectArrayIndex];
+        activeIndex = projectArrayIndex;
      }
 
      static get activeProject() {
         return activeProject;
+     }
+
+     static get activeIndex() {
+         return activeIndex;
      }
 }
