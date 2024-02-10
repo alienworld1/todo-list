@@ -64,6 +64,11 @@ function todoDOMElement(project, todoID) {
     deleteButton.classList.add("create-button");
     deleteButton.classList.add("red-background");
     deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", event => {
+        const todoID = event.currentTarget.parentNode.parentNode.id;
+        ProjectManager.activeProject.removeTodo(todoID);
+        DOMElements.update();
+    })
 
     const editButton = document.createElement("button");
     editButton.classList.add("create-button");
