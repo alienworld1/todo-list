@@ -245,6 +245,7 @@ function newTodoDialog(edit=false, oldID=null) {
         id: "due-date",
         type: "date",
     });
+    dueDateSection.input.value = formatDate(new Date());
     
     const createButton = document.createElement("button");
     createButton.textContent = "Enter Todo";
