@@ -398,6 +398,13 @@ function header() {
     deleteProjectButton.classList.add("create-button");
     deleteProjectButton.classList.add("red-background");
     deleteProjectButton.textContent = "Delete Project";
+    deleteProjectButton.addEventListener("click", () => {
+        ProjectManager.removeProject(ProjectManager.activeIndex);
+        DOMElements.updateSidebar(ProjectManager.projectList);
+        ProjectManager.activeProject = 0;
+
+        displayActiveProject();
+    })
 
     const newToDoButton = document.createElement("button");
     newToDoButton.classList.add("create-button");
@@ -411,6 +418,7 @@ function header() {
 
     header.appendChild(projectHeader);
     header.appendChild(buttonList);
+
 
     return header;
 }
@@ -493,5 +501,14 @@ export default class DOMElements {
 
     static update() {
         updateToDoContainer(ProjectManager.activeProject);
+        const deleteButton = document.querySelector("header button.red-background");
+
+        if (ProjectManager.activeIndex === 0) {
+            deleteButton.disabled = true;
+        }
+
+        else {
+            deleteButton.disabled = false;
+        }
     }
 };

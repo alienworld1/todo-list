@@ -26,4 +26,8 @@ export default class ProjectManager {
      static get activeIndex() {
          return activeIndex;
      }
+
+     static removeProject(projectIndex) {
+         projectArray.splice(projectIndex, 1);
+     }
 }
