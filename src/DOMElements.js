@@ -20,7 +20,7 @@ function capitalize(string) {
 function editForm(todoCard) {
     const todo = ProjectManager.activeProject.todo_container[todoCard.id];
     
-    const dialog = newTodoDialog();
+    const dialog = newTodoDialog(true);
 
     body.appendChild(dialog);
     dialog.showModal();
@@ -216,7 +216,7 @@ function prioritySection() {
     return prioritySection;
 }
 
-function newTodoDialog() {
+function newTodoDialog(edit=false) {
     const dialog = document.createElement("dialog");
     dialog.classList.add("form-dialog");
 
@@ -267,27 +267,7 @@ function newTodoDialog() {
         const dueDate = formData.get("due-date");
         const priority = formData.get("priority");
 
-        if (!(title && description && dueDate)) {
-            dialog.close();
-            return;
-        }
-
-        let id;
-
-        if (ProjectManager.activeProject.hasOwnProperty(title)) {
-            id = title + "1";
-        }
-
-        else id = title;
-
-        const newTodo = todo(
-            title,
-            description,
-            new Date(dueDate),
-            priority
-        );
-
-        ProjectManager.activeProject.addTodo(id, newTodo);
+        addTodo(title, description, dueDate, priority, edit);
         DOMElements.update();
         dialog.close();
 
@@ -301,6 +281,37 @@ function newTodoDialog() {
     });
 
     return dialog;
+}
+
+function addTodo(title, description, dueDate, priority, update=false) {
+    if (!(title && description && dueDate)) {
+        dialog.close();
+        return;
+    }
+
+    let id;
+
+    const newTodo = todo(
+        title,
+        description,
+        new Date(dueDate),
+        priority
+    );
+
+    if (update) {
+        ProjectManager.activeProject.todo_container[id] = newTodo;
+    }
+
+    else {
+        if (ProjectManager.activeProject.todo_container.hasOwnProperty(title)) {
+            id = title + "1";
+        }
+    
+        else id = title;
+        
+        ProjectManager.activeProject.addTodo(id, newTodo);
+    }
+
 }
 
 function openTodoDialog() {
