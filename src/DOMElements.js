@@ -1,6 +1,7 @@
 import ProjectManager from "./ProjectManager";
 import logoIcon from "./Images/notebook-check-outline.svg";
 import todo from "./todo";
+import { capitalize, formatDate } from "./utility";
 
 const body = document.querySelector("body");
 
@@ -11,10 +12,6 @@ function loadImage(source, width, height) {
     image.height = height;
 
     return image;
-}
-
-function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function editForm(todoCard) {
@@ -32,7 +29,7 @@ function editForm(todoCard) {
     document.getElementById("description").value = todo.description;
 
     // changing date to YYYY-MM-DD format.
-    document.getElementById("due-date").value = todo.dueDate.toISOString().slice(0, 10);
+    document.getElementById("due-date").value = formatDate(todo.dueDate);
 
     document.getElementById(todo.priority).checked = true;
 }
@@ -305,7 +302,6 @@ function addTodo(title, description, dueDate, priority, update=false, oldID=null
     );
 
     if (update) {
-
         if (oldID !== title) {
             if (checkIfTodoExists(title)) {
                 id = title + "1";
@@ -314,6 +310,10 @@ function addTodo(title, description, dueDate, priority, update=false, oldID=null
             else id = title;
             
             ProjectManager.activeProject.removeTodo(oldID);
+        }
+
+        else {
+            id = title;
         }
 
         ProjectManager.activeProject.todo_container[id] = newTodo;
